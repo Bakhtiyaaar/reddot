@@ -2,18 +2,23 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <div className="nav-container">
-        <Link to="/" className="logo">🚀 DevForum</Link>
-        
-        <div className="nav-links">
-          <Link to="/">Главная</Link> |
-          <Link to="/forums"> Обсуждения</Link> |
-          <Link to="/register"> Регистрация</Link> |
-          <Link to="/profile/"> Профиль</Link> |
-        </div>
+    <header className="header">
+      <div className="header-left">
+        <Link to="/" className="logo">
+          🚀 Dev<span>Forum</span>
+        </Link>
       </div>
-    </nav>
+      
+      <div className="search-box">
+        <input type="text" placeholder="Найти вопрос, ответ, тег или пользователя..." />
+      </div>
+
+      <div className="header-right">
+        <Link to="/ask-question">
+          <button className="btn-ask">Задать вопрос</button>
+        </Link>
+      </div>
+    </header>
   );
 };
 

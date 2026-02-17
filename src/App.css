@@ -1,26 +1,140 @@
+:root {
+  --habr-dark: #303e49;
+  --habr-blue: #548eaa;
+  --habr-green: #5cb85c;
+  --border: #e6e6e6;
+  --bg-gray: #f0f2f5;
+}
+
 body {
   margin: 0;
-  font-family: sans-serif;
-  background-color: #f0f0f0;
+  background-color: var(--bg-gray);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.navbar {
-  background: #333;
-  padding: 15px;
+.logo {
+  text-decoration: none; 
+  color: white; 
+  font-size: 20px;
+  font-weight: bold;
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 5px;
 }
 
-.navbar a {
+.logo span {
+  color: var(--habr-blue); 
+}
+
+.header {
+  background: var(--habr-dark);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.search-box {
+  flex: 0 1 500px; 
+  margin: 0 20px;
+}
+
+.search-box input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15); 
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
   color: white;
-  text-decoration: none;
+  outline: none;
 }
 
-.content-container {
-  max-width: 500px;
-  margin: 50px auto;
+.container {
+  display: flex;
+  max-width: 1200px; 
+  margin: 0 auto;
+  background: white;
+  min-height: calc(100vh - 50px);
+}
+
+.sidebar {
+  width: 220px;
+  border-right: 1px solid var(--border);
+  background: #fdfdfd;
+}
+
+.nav-item {
+  display: block; 
+  padding: 12px 20px;
+  color: #444;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.nav-item:hover {
+  background: #f0f4f7;
+  color: var(--habr-blue);
+}
+
+.login-link {
+  color: var(--habr-blue);
+  font-weight: bold;
+  border-bottom: 1px solid var(--border);
+}
+
+.main-content {
+  flex: 1;
+  padding: 25px;
+}
+
+footer {
   background: white;
   padding: 20px;
-  border-radius: 8px;
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+  border-top: 1px solid var(--border);
 }
 
+.btn-ask {
+  background: var(--habr-green);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-ask:hover {
+  background: #4cae4c; 
+}
+
+.submit-btn {
+  background-color: var(--habr-blue);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.submit-btn:hover {
+  background-color: #467a94;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+a {
+  text-decoration: none;
+}
