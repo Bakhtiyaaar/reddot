@@ -1,5 +1,5 @@
 :root {
-  --habr-dark: #303e49;
+  --habr-dark: #4e5a71;
   --habr-blue: #548eaa;
   --habr-green: #5cb85c;
   --border: #e6e6e6;
@@ -15,11 +15,11 @@ body {
 .logo {
   text-decoration: none; 
   color: white; 
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 2px;
 }
 
 .logo span {
@@ -28,7 +28,7 @@ body {
 
 .header {
   background: var(--habr-dark);
-  height: 50px;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,23 +39,31 @@ body {
 }
 
 .search-box {
-  flex: 0 1 500px; 
+  flex: 0 1 600px; 
   margin: 0 20px;
 }
 
 .search-box input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.15); 
+  background: rgba(0, 0, 0, 0.2);
   border: none;
   border-radius: 4px;
-  padding: 8px 12px;
+  padding: 12px 15px;
   color: white;
   outline: none;
 }
 
+.search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-box input:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
 .container {
   display: flex;
-  max-width: 1200px; 
+  max-width: 1400px; 
   margin: 0 auto;
   background: white;
   min-height: calc(100vh - 50px);
@@ -69,10 +77,10 @@ body {
 
 .nav-item {
   display: block; 
-  padding: 12px 20px;
+  padding: 12px 21px;
   color: #444;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
   transition: 0.2s;
 }
 
@@ -94,7 +102,7 @@ body {
 
 footer {
   background: white;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   font-size: 13px;
   color: #777;
@@ -105,7 +113,7 @@ footer {
   background: var(--habr-green);
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 12px 20px;
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
