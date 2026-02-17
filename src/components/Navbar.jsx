@@ -14,7 +14,7 @@ const Navbar = () => {
       </div>
 
       <div className="header-right">
-        <Link to="/ask-question">
+        <Link to="/ask">
           <button className="btn-ask">Задать вопрос</button>
         </Link>
       </div>

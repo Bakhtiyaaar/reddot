@@ -1,0 +1,26 @@
+.custom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background-color: #5a8eb1; 
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #4d7a99;
+}
+
+.btn-primary:active {
+  background-color: #3e637a;
+}
