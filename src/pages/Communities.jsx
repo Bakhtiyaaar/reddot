@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../components/Button';
+import '../styles/Communities.css';
+
+const COMMUNITIES_DATA = [
+  { id: 1, name: "Разработка", members: "45k", icon: "💻" },
+  { id: 2, name: "Дизайн", members: "12k", icon: "🎨" },
+  { id: 3, name: "Администрирование", members: "8k", icon: "⚙️" },
+  { id: 4, name: "Маркетинг", members: "15k", icon: "📊" },
+];
 
 const Communities = () => {
   const [subscribed, setSubscribed] = useState(() => {
     const saved = localStorage.getItem('my_subscriptions');
     return saved ? JSON.parse(saved) : {};
   });
-
-  const communities = [
-    { id: 1, name: "Разработка", members: "45k", icon: "💻" },
-    { id: 2, name: "Дизайн", members: "12k", icon: "🎨" },
-    { id: 3, name: "Администрирование", members: "8k", icon: "⚙️" },
-    { id: 4, name: "Маркетинг", members: "15k", icon: "📊" },
-  ];
 
   useEffect(() => {
     localStorage.setItem('my_subscriptions', JSON.stringify(subscribed));
@@ -32,16 +33,17 @@ const Communities = () => {
           <h1>Сообщества</h1>
         </div>
 
-        <div className="communities-list" style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
-          {communities.map(hub => (
-            <div key={hub.id} className="post-card" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-              <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-                <span style={{fontSize: '30px'}}>{hub.icon}</span>
-                <div>
-                  <h3 style={{margin: 0}}>{hub.name}</h3>
-                  <p style={{margin: 0, color: '#999', fontSize: '14px'}}>{hub.members} участников</p>
+        <div className="communities-list">
+          {COMMUNITIES_DATA.map(hub => (
+            <div key={hub.id} className="post-card">
+              <div className="community-info">
+                <span className="community-icon">{hub.icon}</span>
+                <div className="community-text">
+                  <h3>{hub.name}</h3>
+                  <p>{hub.members} участников</p>
                 </div>
               </div>
+              
               <Button 
                 variant={subscribed[hub.id] ? "secondary" : "primary"}
                 onClick={() => toggleSubscribe(hub.id)}
