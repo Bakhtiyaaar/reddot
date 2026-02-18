@@ -6,6 +6,8 @@ import Profile from "../pages/Profile";
 import CreatePost from "../pages/CreatePost";
 import PostDetail from "../pages/PostDetail"; 
 import PrivateRoute from "./privateRoute";
+import Tags from "../pages/Tags";
+import Communities from "../pages/Communities";
 
 const AppRouter = () => {
   return (
@@ -15,6 +17,8 @@ const AppRouter = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/post/:id" element={<PostDetail />} />
       <Route path="/forums" element={<Navigate to="/" replace />} />
+      <Route path="/tags" element={<Tags />} />
+      <Route path="/communities" element={<Communities />} />
 
       <Route 
         path="/profile" 
