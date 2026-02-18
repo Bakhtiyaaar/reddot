@@ -1,0 +1,148 @@
+.post-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.back-btn {
+  color: #7f8c8d;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 30px;
+  padding: 0;
+}
+
+.post-title {
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.post-author-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.author-name {
+  font-weight: bold;
+  color: #3498db;
+}
+
+.back-btn {
+  color: #3498db;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.post-date-detail {
+  color: #95a5a6;
+  font-size: 14px;
+}
+
+.post-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #34495e;
+  white-space: pre-wrap; 
+}
+
+.post-actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.like-btn {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+}
+
+.like-btn:hover {
+  background: #ffeef0;
+  border-color: #ff4757;
+  transform: scale(1.05);
+}
+
+.post-tags {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-item {
+  background: #e1f5fe;
+  color: #0288d1;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.comments-section {
+  margin-top: 40px;
+  border-top: 2px solid #eee;
+  padding-top: 20px;
+}
+
+.comment-item {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #3498db;
+}
+
+.comment-item p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.comment-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.comment-form input:focus {
+  border-color: #3498db;
+}
+
+.comment-form button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.comment-form button:hover {
+  background: #2980b9;
+}

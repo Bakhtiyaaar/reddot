@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
-import "./CreatePost.css";
+import "../styles/CreatePost.css";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");

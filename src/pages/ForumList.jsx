@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./ForumList.css";
+import "../styles/ForumList.css";
 
 const ForumList = () => {
   const [posts, setPosts] = useState([]);
@@ -25,7 +25,12 @@ const ForumList = () => {
             posts.map((post) => (
               <div key={post.id} className="post-card">
                 <div className="post-stats">
-                  <span>0 ответов</span>
+                  <div className="stat-item">
+                    <span>💬 {post.comments?.length || 0} ответов</span>
+                  </div>
+                  <div className="stat-item">
+                    <span>❤️ {post.likes || 0}</span>
+                  </div>
                 </div>
                 <div className="post-info">
                   <Link to={`/post/${post.id}`} className="post-link">

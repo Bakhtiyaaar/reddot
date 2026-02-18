@@ -1,5 +1,5 @@
 import React from 'react';
-import './button.css'; 
+import '../styles/button.css'; 
 
 export const Button = ({ children, onClick, type = "button", variant = "primary", className = "" }) => {
   const buttonClass = `custom-btn btn-${variant} ${className}`;
