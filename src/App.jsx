@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { useLocation } from 'react-router-dom'; 
 import { AuthProvider } from './context/AuthContext'; 
 import './App.css'; 
+import './styles/Mobile.css';
 
 function App() {
   const location = useLocation();
