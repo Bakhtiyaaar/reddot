@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../hooks/useAuth'; 
 import { Button } from '../components/Button';
 import '../styles/Communities.css';
 
@@ -10,6 +12,9 @@ const COMMUNITIES_DATA = [
 ];
 
 const Communities = () => {
+  const { user } = useAuth(); 
+  const navigate = useNavigate();
+  
   const [subscribed, setSubscribed] = useState(() => {
     const saved = localStorage.getItem('my_subscriptions');
     return saved ? JSON.parse(saved) : {};
@@ -20,6 +25,12 @@ const Communities = () => {
   }, [subscribed]);
 
   const toggleSubscribe = (id) => {
+    if (!user) {
+      alert("Войдите в аккаунт, чтобы подписываться на сообщества!");
+      navigate('/login'); 
+      return;
+    }
+
     setSubscribed(prev => ({
       ...prev,
       [id]: !prev[id]
@@ -35,7 +46,7 @@ const Communities = () => {
 
         <div className="communities-list">
           {COMMUNITIES_DATA.map(hub => (
-            <div key={hub.id} className="post-card">
+            <div key={hub.id} className="post-card community-item">
               <div className="community-info">
                 <span className="community-icon">{hub.icon}</span>
                 <div className="community-text">

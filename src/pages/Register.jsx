@@ -16,6 +16,10 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const getUsers = () => {
+    return JSON.parse(localStorage.getItem("users")) || []; 
+  };
+
   const handleRegister = (e) => {
     e.preventDefault();
 
@@ -23,19 +27,30 @@ function Register() {
       alert("Пароли не совпадают!");
       return;
     }
+
     if (formData.password.length < 6) {
       alert("Пароль должен быть длиннее 6 символов");
       return;
     }
 
-    const user = {
+    const users = getUsers();
+
+    const userExists = users.some((user) => user.email === formData.email);
+    if (userExists) {
+      alert("Пользователь с таким email уже существует.");
+      return;
+    }
+
+    const newUser = {
       email: formData.email,
       username: formData.nickname,
       password: formData.password
     };
-    
-    localStorage.setItem("user", JSON.stringify(user));
-    
+
+    users.push(newUser);
+
+    localStorage.setItem("users", JSON.stringify(users));
+
     alert("Регистрация успешна! Теперь войдите в аккаунт.");
     navigate("/login");
   };
@@ -102,15 +117,10 @@ function Register() {
 
           <button type="submit" className="login-btn-blue">Зарегистрироваться</button>
         </form>
-
       </div> 
       <div className="auth-extra-links">
         Уже есть аккаунт? <Link to="/login">Войти</Link>
       </div>
-
-      <footer className="auth-footer-minimal">
-        <span>🌐 English</span> <span>О сервисе</span> <span>Обратная связь</span> <span>Соглашение</span>
-      </footer>
     </div>
   );
 }

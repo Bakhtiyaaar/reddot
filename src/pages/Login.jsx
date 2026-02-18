@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/Auth.css"; 
 import { useAuth } from "../hooks/useAuth";
@@ -8,16 +8,24 @@ const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
+  const getUsers = () => {
+    return JSON.parse(localStorage.getItem("users")) || []; 
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const savedUser = JSON.parse(localStorage.getItem("user")); 
+    const users = getUsers(); 
 
-    if (savedUser && savedUser.email === formData.email && savedUser.password === formData.password) {
-      login(savedUser); 
+    const foundUser = users.find(
+      (user) => user.email === formData.email && user.password === formData.password
+    );
+
+    if (foundUser) {
+      login(foundUser); 
       navigate("/profile"); 
     } else {
       alert("Неверный email или пароль");
@@ -31,11 +39,23 @@ const Login = () => {
         <form onSubmit={handleLogin} className="auth-form">
           <div className="input-group">
             <label>Email</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="input-group">
             <label>Пароль</label>
-            <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="captcha-container">
             <div className="captcha-box">
