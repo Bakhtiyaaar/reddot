@@ -1,59 +1,95 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../styles/PostDetail.css"; 
+import { useAuth } from "../hooks/useAuth";
 
 const PostDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [commentText, setCommentText] = useState(''); 
+  const { user } = useAuth();
 
   useEffect(() => {
-    const allPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    const foundPost = allPosts.find(p => p.id === Number(id));
-    setPost(foundPost);
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/posts/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPost(data);
+        } else {
+          console.error("Пост не найден в базе");
+        }
+      } catch (error) {
+        console.error("Ошибка сети:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
   }, [id]);
 
-  const handleLike = () => {
-    const allPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    const updatedPosts = allPosts.map(p => {
-      if (p.id === post.id) {
-        return { ...p, likes: (p.likes || 0) + 1 };
+  const handleLike = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/posts/${id}/like`, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        const updatedPost = await response.json();
+        setPost(updatedPost); 
       }
-      return p;
-    });
-    localStorage.setItem("posts", JSON.stringify(updatedPosts));
-    setPost({ ...post, likes: (post.likes || 0) + 1 }); 
+    } catch (error) {
+      console.error("Ошибка при лайке:", error);
+    }
   };
 
-  const handleAddComment = (e) => {
+  const handleAddComment = async (e) => {
     e.preventDefault();
     if (!commentText.trim()) return;
 
-    const newComment = {
-      id: Date.now(),
-      text: commentText,
-      author: "Аноним" 
-    };
+    const authorName = user ? user.username : "Аноним";
 
-    const allPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    const updatedPosts = allPosts.map(p => {
-      if (p.id === post.id) {
-        return { ...p, comments: [...(p.comments || []), newComment] };
+    try {
+      const response = await fetch(`http://localhost:5000/api/posts/${id}/comment`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: commentText,
+          author: authorName
+        }),
+      });
+
+      if (response.ok) {
+        const updatedPost = await response.json();
+        setPost(updatedPost); 
+        setCommentText(''); 
+      } else {
+        alert("Не удалось сохранить комментарий");
       }
-      return p;
-    });
-
-    localStorage.setItem("posts", JSON.stringify(updatedPosts));
-    setPost({ ...post, comments: [...(post.comments || []), newComment] });
-    setCommentText(''); 
+    } catch (error) {
+      console.error("Ошибка при отправке комментария:", error);
+      alert("Сервер не отвечает");
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="layout-wrapper">
+        <main className="post-container">
+          <p>Загрузка данных из MongoDB...</p>
+        </main>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
       <div className="layout-wrapper">
         <main className="post-container">
-          <p>Пост не найден или загружается...</p>
+          <p>Пост не найден в базе данных.</p>
           <button onClick={() => navigate("/")} className="back-btn">На главную</button>
         </main>
       </div>
@@ -71,7 +107,9 @@ const PostDetail = () => {
         
         <div className="post-author-info">
           <span className="author-name">{post.author}</span>
-          <span className="post-date-detail">{post.date}</span>
+          <span className="post-date-detail">
+            {new Date(post.createdAt).toLocaleString()}
+          </span>
         </div>
 
         <div className="post-content">
@@ -84,11 +122,11 @@ const PostDetail = () => {
            </button>
         </div>
 
-        {post.tags && (
+        {post.tags && Array.isArray(post.tags) && (
           <div className="post-tags">
-            {post.tags.split(',').map(tag => (
+            {post.tags.map(tag => (
               <span key={tag} className="tag-item">
-                #{tag.trim()}
+                #{tag}
               </span>
             ))}
           </div>
@@ -100,7 +138,7 @@ const PostDetail = () => {
           <h3>Ответы ({post.comments?.length || 0})</h3>
           <div className="comments-list">
             {post.comments && post.comments.map(c => (
-              <div key={c.id} className="comment-item">
+              <div key={c._id || c.id} className="comment-item">
                 <p><strong>{c.author}</strong>: {c.text}</p>
               </div>
             ))}

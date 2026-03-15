@@ -4,7 +4,6 @@ import "../styles/Auth.css";
 
 function Register() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     email: "",
     nickname: "",
@@ -16,11 +15,7 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const getUsers = () => {
-    return JSON.parse(localStorage.getItem("users")) || []; 
-  };
-
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.passwordConfirm) {
@@ -28,31 +23,28 @@ function Register() {
       return;
     }
 
-    if (formData.password.length < 6) {
-      alert("Пароль должен быть длиннее 6 символов");
-      return;
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          username: formData.nickname,
+          password: formData.password
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Регистрация успешна! Теперь войдите в аккаунт.");
+        navigate("/login");
+      } else {
+        alert(data.message || "Ошибка при регистрации");
+      }
+    } catch (error) {
+      alert("Сервер не отвечает");
     }
-
-    const users = getUsers();
-
-    const userExists = users.some((user) => user.email === formData.email);
-    if (userExists) {
-      alert("Пользователь с таким email уже существует.");
-      return;
-    }
-
-    const newUser = {
-      email: formData.email,
-      username: formData.nickname,
-      password: formData.password
-    };
-
-    users.push(newUser);
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Регистрация успешна! Теперь войдите в аккаунт.");
-    navigate("/login");
   };
 
   return (

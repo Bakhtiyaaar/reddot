@@ -8,27 +8,30 @@ const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const getUsers = () => {
-    return JSON.parse(localStorage.getItem("users")) || []; 
-  };
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const users = getUsers(); 
 
-    const foundUser = users.find(
-      (user) => user.email === formData.email && user.password === formData.password
-    );
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    if (foundUser) {
-      login(foundUser); 
-      navigate("/profile"); 
-    } else {
-      alert("Неверный email или пароль");
+      const data = await response.json();
+
+      if (response.ok) {
+        login(data.user, data.token); 
+        navigate("/profile");
+      } else {
+        alert(data.message || "Неверный email или пароль");
+      }
+    } catch (error) {
+      alert("Ошибка подключения к серверу");
     }
   };
 

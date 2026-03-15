@@ -8,7 +8,7 @@ const CreatePost = () => {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
-  const handlePublish = (e) => {
+  const handlePublish = async (e) => {
     e.preventDefault();
 
     if (!title.trim() || !content.trim()) {
@@ -16,19 +16,34 @@ const CreatePost = () => {
       return;
     }
 
+    const author = JSON.parse(localStorage.getItem("user"))?.username || "Аноним";
+
     const newPost = {
-      id: Date.now(),
       title: title,
       content: content,
-      author: JSON.parse(localStorage.getItem("user"))?.username || "Аноним",
-      date: new Date().toLocaleDateString(),
+      author: author
     };
 
-    const existPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    localStorage.setItem("posts", JSON.stringify([newPost, ...existPosts]));
+    try {
+      const response = await fetch('http://localhost:5000/api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPost),
+      });
 
-    alert("Готово!");
-    navigate("/");
+      if (response.ok) {
+        alert("Опубликовано в MongoDB!");
+        navigate("/");
+      } else {
+        const errorData = await response.json();
+        alert(`Ошибка сервера: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке поста:", error);
+      alert("Не удалось связаться с сервером. Проверь, запущен ли бэкенд!");
+    }
   }; 
 
   return (
