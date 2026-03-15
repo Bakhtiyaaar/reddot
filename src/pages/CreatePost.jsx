@@ -12,7 +12,7 @@ const CreatePost = () => {
     e.preventDefault();
 
     if (!title.trim() || !content.trim()) {
-      alert("Заполни поля!");
+      alert("Заполни поля");
       return;
     }
 
@@ -20,26 +20,26 @@ const CreatePost = () => {
       id: Date.now(),
       title: title,
       content: content,
-      author: JSON.parse(localStorage.getItem("user"))?.username || "Bateka",
+      author: JSON.parse(localStorage.getItem("user"))?.username || "Аноним",
       date: new Date().toLocaleDateString(),
     };
 
-    const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    localStorage.setItem("posts", JSON.stringify([newPost, ...existingPosts]));
+    const existPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    localStorage.setItem("posts", JSON.stringify([newPost, ...existPosts]));
 
     alert("Готово!");
-    navigate("/"); 
-  };
+    navigate("/");
+  }; 
 
   return (
     <div className="layout-wrapper">
       <main className="main-content">
         <h2 className="page-title">Новый вопрос</h2>
-        <hr></hr>
+        <hr />
         
         <form className="question-form" onSubmit={handlePublish}>
           <div className="form-group">
-            <br></br>
+            <br />
             <label>Суть вопроса</label>
             <input 
               type="text" 
@@ -79,6 +79,6 @@ const CreatePost = () => {
       </main>
     </div>
   );
-};
+}; 
 
 export default CreatePost;
