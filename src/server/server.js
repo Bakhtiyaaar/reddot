@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+import authRoutes from './routes/auth.js';
+import postRoutes from './routes/posts.js';
+
 dotenv.config();
 
 const app = express();
@@ -13,8 +16,12 @@ app.use(express.json());
 const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/reddot';
 
 mongoose.connect(mongoURI)
-    .then(() => console.log('✅ MongoDB Connected !'))
+    .then(() => console.log('✅ MongoDB Connected to Compass!'))
     .catch(err => console.log('❌ DB Connection Error:', err));
+
+app.use('/api/auth', authRoutes);
+
+app.use('/api/posts', postRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');
