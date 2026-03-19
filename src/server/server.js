@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { backupDatabase } from './backup.js';
 
 import authRoutes from './routes/auth.js';
 import postRoutes from './routes/posts.js';
@@ -16,8 +17,11 @@ app.use(express.json());
 const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/reddot';
 
 mongoose.connect(mongoURI)
-    .then(() => console.log('✅ MongoDB Connected to Compass!'))
-    .catch(err => console.log('❌ DB Connection Error:', err));
+    .then(() => {
+        console.log('MongoDB Connected to Compass!');
+        backupDatabase();
+    })
+    .catch(err => console.log('DB Connection Error:', err));
 
 app.use('/api/auth', authRoutes);
 
@@ -28,4 +32,4 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
