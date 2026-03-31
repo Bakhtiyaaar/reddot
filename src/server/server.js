@@ -27,6 +27,10 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/posts', postRoutes);
 
+app.use((req, res) => {
+    res.status(404).json({ message: "Упс! Такой страницы не существует" });
+});
+
 app.get('/', (req, res) => {
     res.send('API is running...');
 });

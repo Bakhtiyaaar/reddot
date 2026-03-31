@@ -9,6 +9,14 @@ router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
+        if (!username || !email || !password) {
+            return res.status(400).json({ message: "Пожалуйста, заполните все поля" });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Пароль должен быть не менее 6 символов" });
+        }
+
         const userExists = await User.findOne({ $or: [{ email }, { username }] });
         if (userExists) {
             return res.status(400).json({ message: "Пользователь с таким email или именем уже есть" });

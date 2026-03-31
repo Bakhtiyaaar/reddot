@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #eee;
 }
@@ -53,14 +53,31 @@
 }
 
 .post-content {
-  font-size: 18px;
-  line-height: 1.8;
-  color: #34495e;
-  white-space: pre-wrap; 
+  background: #f8f9fa; 
+  border: 1px solid #eef0f2;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #2c3e50;
+  white-space: pre-wrap;
+  margin: 0;
+  position: relative;
+}
+
+.post-content::before {
+  content: "Контент"; 
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #95a5a6;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 .post-actions {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   gap: 15px;
 }
@@ -97,9 +114,9 @@
 }
 
 .comments-section {
-  margin-top: 40px;
+  margin-top: 20px;
   border-top: 2px solid #eee;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .comment-item {
@@ -145,4 +162,136 @@
 
 .comment-form button:hover {
   background: #2980b9;
+}
+
+.admin-controls {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.edit-btn, .delete-btn {
+  background: transparent;
+  color: #7f8c8d; 
+  border: 1px solid #bdc3c7; 
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-btn:hover {
+  background: rgba(52, 152, 219, 0.05);
+  color: #3498db; 
+  border-color: #3498db;
+}
+
+.delete-btn:hover {
+  background: rgba(231, 76, 60, 0.05); 
+  color: #e74c3c; 
+  border-color: #e74c3c; 
+}
+
+.edit-post-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-title-input, .edit-content-textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: inherit;
+  color: #333;
+  background: #fff;
+}
+
+.edit-post-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.edit-title-input {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 12px;
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.edit-content-textarea {
+  min-height: 300px; 
+  padding: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical; 
+  font-family: inherit;
+}
+
+.edit-title-input:focus, .edit-content-textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 3px;
+}
+
+.save-btn, .cancel-btn {
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s; 
+}
+
+.save-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #2ecc71;
+}
+
+.cancel-btn {
+  background: #bdc3c7; 
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #95a5a6;
+}
+
+.edit-title-input, .edit-content-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-sizing: border-box; 
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.edit-content-textarea {
+  min-height: 200px;
 }

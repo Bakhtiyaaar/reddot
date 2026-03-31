@@ -89,4 +89,45 @@ router.post('/:id/like', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    try {
+        const { title, content } = req.body;
+
+        if (!title || !content || content.trim() === "") {
+            return res.status(400).json({ message: "Поля не могут быть пустыми" });
+        }
+
+        const safeTitle = title.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const safeContent = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.id,
+            { title: safeTitle, content: safeContent },
+            { new: true } 
+        );
+
+        if (!updatedPost) {
+            return res.status(404).json({ message: "Пост не найден" });
+        }
+
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(500).json({ message: "Ошибка при обновлении поста" });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const post = await Post.findByIdAndDelete(req.params.id);
+        
+        if (!post) {
+            return res.status(404).json({ message: "Пост не найден" });
+        }
+
+        res.json({ message: "Пост успешно удален" });
+    } catch (err) {
+        res.status(500).json({ message: "Ошибка при удалении поста" });
+    }
+});
+
 export default router;
