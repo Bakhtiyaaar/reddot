@@ -1,16 +1,35 @@
-# React + Vite
+# Reddot — Веб платформа для обсуждений и форумов.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Автор:** Бахытжан Бахтияр
+**Репозиторий:** [https://github.com/Bakhtiyaaar/reddot.git](https://github.com/Bakhtiyaaar/reddot.git)
 
-Currently, two official plugins are available:
+**Reddot** — это веб-форум, вдохновленный Reddit и Habr, созданный для студентов и разработчиков. Платформа позволяет пользователям публиковать свои вопросы, делиться фрагментами кода, обсуждать темы в комментариях и оценивать контент с помощью системы лайков.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Основной функционал:
+* **CRUD постов:** Создание, чтение, редактирование и удаление публикаций.
+* **Система комментариев:** Возможность отвечать на посты в реальном времени.
+* **Интерактив:** Система лайков для оценки полезности контента.
+* **Безопасность:** Валидация паролей при регистрации и авторизации.
+* **UI/UX:** Минималистичный адаптивный интерфейс с плавными переходами.
 
-## React Compiler
+## 🛠 Стек технологий и зависимости
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend:
+* **Node.js & Express:** Серверная логика и API.
+* **MongoDB & Mongoose:** Хранение данных (посты, пользователи, комментарии).
+* **bcrypt / bcryptjs:** Безопасное хэширование паролей пользователей.
+* **jsonwebtoken (JWT):** Аутентификация и защита роутов.
+* **cors & dotenv:** Настройка кросс-доменных запросов и переменных окружения.
 
-## Expanding the ESLint configuration
+### Frontend:
+* **React 18:** Библиотека для создания интерфейса.
+* **Vite:** Сборщик проекта для быстрой работы (HMR).
+* **React Router DOM:** Навигация между страницами без перезагрузки.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Инструкция по установке и запуску
+
+### 1. Клонирование и установка
+```bash
+git clone [https://github.com/Bakhtiyaaar/reddot.git](https://github.com/Bakhtiyaaar/reddot.git)
+cd reddot
+npm install 
