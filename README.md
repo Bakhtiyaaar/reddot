@@ -34,3 +34,15 @@
 git clone [https://github.com/Bakhtiyaaar/reddot.git](https://github.com/Bakhtiyaaar/reddot.git)
 cd reddot
 npm install 
+```
+### 2. Настройка окружения
+Создайте файл .env в корне проекта и добавьте ваши данные:
+```bash
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+PORT=5000
+```
+### 3. Запуск проекта
+```bash
+npm run dev
+```
