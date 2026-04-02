@@ -5,6 +5,31 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
+router.post('/subscribe', async (req, res) => {
+    try {
+        const { userId, communityId } = req.body;
+
+        if (!userId || communityId === undefined) {
+            return res.status(400).json({ message: "Недостаточно данных" });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "Пользователь не найден" });
+
+        const index = user.communities.indexOf(communityId);
+        if (index > -1) {
+            user.communities.splice(index, 1);
+        } else {
+            user.communities.push(communityId);
+        }
+
+        await user.save();
+        res.json(user.communities); 
+    } catch (err) {
+        res.status(500).json({ error: "Ошибка при обновлении подписки" });
+    }
+});
+
 router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -28,7 +53,8 @@ router.post('/register', async (req, res) => {
         const newUser = new User({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            communities: []
         });
 
         await newUser.save();
@@ -56,7 +82,7 @@ router.post('/login', async (req, res) => {
 
         res.json({
             token,
-            user: { id: user._id, username: user.username, email: user.email }
+            user: { id: user._id, username: user.username, email: user.email, communities: user.communities }
         });
     } catch (err) {
         res.status(500).json({ error: err.message });

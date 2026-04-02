@@ -1,1 +1,41 @@
-[]
+[
+  {
+    "_id": "69bbbf4fe93edf34db483da2",
+    "title": "  a",
+    "content": "das",
+    "author": "bakhtiyaaar1234",
+    "likes": 18,
+    "comments": [
+      {
+        "text": "                                                                   d",
+        "author": "bakhtiyaaar1234",
+        "createdAt": "2026-03-19T09:18:28.887Z",
+        "_id": "69bbbf64e93edf34db483dbb"
+      },
+      {
+        "text": "dasdas",
+        "author": "bakhtiyaaar1234",
+        "createdAt": "2026-03-19T09:19:04.743Z",
+        "_id": "69bbbf88e93edf34db483dbf"
+      },
+      {
+        "text": "вфывфыв",
+        "author": "bakhtiyaaar1234",
+        "createdAt": "2026-03-19T09:24:24.074Z",
+        "_id": "69bbc0c80abfcde8753ba665"
+      }
+    ],
+    "createdAt": "2026-03-19T09:18:07.918Z",
+    "__v": 3
+  },
+  {
+    "_id": "69ce2c47616b51ea76af20cd",
+    "title": "sadasdasda",
+    "content": "dasdasdasd",
+    "author": "bakhtiyaaar1234",
+    "likes": 0,
+    "comments": [],
+    "createdAt": "2026-04-02T08:43:51.764Z",
+    "__v": 0
+  }
+]

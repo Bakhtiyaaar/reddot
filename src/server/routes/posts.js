@@ -5,7 +5,9 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const posts = await Post.find().sort({ createdAt: -1 });
+        const { author } = req.query;
+        const filter = author ? { author: author } : {};
+        const posts = await Post.find(filter).sort({ createdAt: -1 });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -103,7 +105,7 @@ router.put('/:id', async (req, res) => {
         const updatedPost = await Post.findByIdAndUpdate(
             req.params.id,
             { title: safeTitle, content: safeContent },
-            { new: true } 
+            { returnDocument: 'after' }
         );
 
         if (!updatedPost) {

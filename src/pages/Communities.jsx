@@ -12,36 +12,60 @@ const COMMUNITIES_DATA = [
 ];
 
 const Communities = () => {
-  const { user } = useAuth(); 
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
-  
-  const [subscribed, setSubscribed] = useState(() => {
-    const saved = localStorage.getItem('my_subscriptions');
-    return saved ? JSON.parse(saved) : {};
-  });
+
+  const [subscribed, setSubscribed] = useState({});
 
   useEffect(() => {
-    localStorage.setItem('my_subscriptions', JSON.stringify(subscribed));
-  }, [subscribed]);
-
-  const toggleSubscribe = (id) => {
-    if (!user) {
-      alert("Войдите в аккаунт, чтобы подписываться на сообщества!");
-      navigate('/login'); 
-      return;
+    if (user && user.communities) {
+      const subsMap = {};
+      user.communities.forEach(id => {
+        subsMap[id] = true;
+      });
+      setSubscribed(subsMap);
     }
+  }, [user]);
 
-    setSubscribed(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
+  const toggleSubscribe = async (id) => {
+  if (!user) {
+    alert("Войдите в аккаунт!");
+    navigate('/login');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId: user._id || user.id, 
+        communityId: id
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setUser({ ...user, communities: data });
+      
+      const subsMap = {};
+      data.forEach(subId => { subsMap[subId] = true; });
+      setSubscribed(subsMap);
+    } else {
+      console.error("Ошибка от сервера:", data.message);
+    }
+  } catch (err) {
+    console.error("Ошибка сети:", err);
+  }
+};
 
   return (
     <div className="layout-wrapper">
       <main className="main-content">
         <div className="forum-header">
           <h1>Сообщества</h1>
+          <p className="subtitle">Вступайте в группы по интересам</p>
         </div>
 
         <div className="communities-list">
