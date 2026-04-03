@@ -19,7 +19,7 @@ const Navbar = () => {
     <header className="header">
       <div className="header-left">
         <Link to="/" className="logo">
-          🚀 Red<span>dot</span>
+          💻 Red<span>dot</span>
         </Link>
       </div>
       
